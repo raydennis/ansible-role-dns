@@ -1,0 +1,52 @@
+---
+# tasks file for ansible-role-dns
+
+- name: get pre-requisite packages
+  package:
+    name: 
+      - bind
+      - bind-utils
+    state: present
+
+- name: Copy named.conf
+  template:
+    src: "named.conf.j2"
+    dest: "/etc/named.conf"
+    force: true
+    owner: root
+    group: named
+    mode: u=rw,g=r
+
+- name: Copy forward lookup zone file
+  template:
+    src: "domain.zone.j2"
+    dest: "/var/named/domain.zone"
+    force: true
+    owner: root
+    group: named
+    mode: u=rw,g=r
+
+- name: Copy reverse lookup zone file
+  template:
+    src: "domain.rzone.j2"
+    dest: "/var/named/domain.rzone"
+    force: true
+    owner: root
+    group: named
+    mode: u=rw,g=r
+
+- name: Restart service named
+  service:
+    name: named
+    state: restarted
+
+- name: permit traffic in default zone for dns service
+  firewalld:
+    service: dns
+    permanent: yes
+    state: enabled
+
+- name: Restart service firewalld
+  service:
+    name: firewalld
+    state: restarted

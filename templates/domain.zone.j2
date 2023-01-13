@@ -1,0 +1,21 @@
+$TTL 2d
+
+$ORIGIN {{ domain }}.
+
+@       IN      SOA     ns.{{ domain }}. info.{{ domain }}. (
+        1        ; Serial
+        10800    ; Refresh after 3 hours
+        3600     ; Retry after 1 hour
+        604800   ; Expire after 1 week
+        3600 )   ; Negative caching TTL of 1 hour
+
+        IN      NS      ns.{{ domain }}.
+
+ns      IN      A       192.158.121.57
+
+; -- dns records below
+
+k3s1    IN      A       192.168.121.130
+k3s2    IN      A       192.168.121.137
+k3s3    IN      A       192.168.121.74
+

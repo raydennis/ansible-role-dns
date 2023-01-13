@@ -1,0 +1,18 @@
+$TTL 86400
+@   IN  SOA     ns1.{{ domain }}. root.{{ domain }}. (
+        2011071001  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS          ns1.{{ domain }}.
+@       IN  PTR         {{ domain }}.
+ns1     IN  A           192.168.1.160
+k3s1    IN  A           192.168.121.120
+k3s2    IN  A           192.168.121.213
+k3s3    IN  A           192.168.121.75
+160     IN  PTR         ns1.{{ domain }}.
+136     IN  PTR         k3s1.{{ domain }}.
+137     IN  PTR         k3s2.{{ domain }}.
+138     IN  PTR         k3s3.{{ domain }}.
